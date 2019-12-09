@@ -26,8 +26,6 @@ class Poneys
     public function removePoneyFromField(int $number)
     {
         if($number > $this->count){
-            echo "\n ", $this->count, ' sont retirés du champ et tu n as pas réussi a en retirer ', $number-$this->count;
-            $this->count=0;
             throw new Exception('Tu ne peux pas retirer des Poneys qui n existent pas');
         }
         else if($number < 0){
@@ -45,7 +43,7 @@ class Poneys
      */
     public function addPoneyFromField(int $number)
     {
-        if(!$this->isFree()){
+        if(!$this->isFree($number)){
             throw new Exception('Plus de place pour des poneys');
         }
         $this->count += $number;
@@ -66,9 +64,9 @@ class Poneys
      *
      * @return boolean
      */
-    public function isFree()
+    public function isFree($number)
     {
-        if($this->count < 15){
+        if(($this->count+$number) < 15){
             return true;
         }
         return false; 
